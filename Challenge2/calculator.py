@@ -12,8 +12,7 @@ def cal_tax(income, insurance):
 
     desal=[0, 105, 555, 1005, 2755, 5505, 13505]
 
-    if (income < 3500):
-        print ("You need to pay 0.00")
+    if (income <= 3500):
         return 0.00
     else:
         x = income - 3500 - insurance
@@ -28,20 +27,20 @@ def cal_tax(income, insurance):
 
 def main():
     try:
-        if len(sys.argv) != 2:
+        if len(sys.argv) < 2:
             raise ValueError
-        s = int(sys.argv[1])
-        print (s)
+        for e in sys.argv[1:]:
+            i = e.index(':')
+            n = e[:i]
+            print(n,end=':')
+            s = int(e[(i+1):])
+            r = cal_insurance(s)
+            t = cal_tax(s, r)
+            q = format(s - r - t, ".2f")
+            print(q)
     except:
         print ("Parameter Error")
         return
-    else:
-        r = cal_insurance(s)
-        print (r)
-        t = cal_tax(s, r)
-        print (t)
-        q = s - r - t
-        print (format(q, ".2f"))
     finally:
         print ("\nThks.")
         print ("This is a salary tax calculator by wjl\nUsage: ./calculator.py $[INT]")
