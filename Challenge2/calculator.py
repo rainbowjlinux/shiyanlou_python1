@@ -43,7 +43,7 @@ def main():
         return
     finally:
         print ("\nThks.")
-        print ("This is a salary tax calculator by wjl\nUsage: ./calculator.py $[INT]")
+        print ("This is a salary tax calculator by wjl\nUsage: ./calculator.py [name:salary ...]")
 
 if __name__ == '__main__':
     main()
