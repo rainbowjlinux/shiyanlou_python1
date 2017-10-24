@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import json
+import os
 
 def cal_insurance(salary, ins_rate):
     if salary < ins_rate[0]:
@@ -40,9 +41,15 @@ def main():
     try:
         if len(sys.argv) != 7:
             raise ValueError
+        if sys.argv[1] != '-c' or sys.argv[3] != '-d':
+            raise IndexError
+        if sys.argv[5] != '-o':
+            raise IndexError
         cfg_path = sys.argv[2]
         user_path = sys.argv[4]
         gongzi_path = sys.argv[6]
+        if not (os.path.exists(cfg_path) and os.path.exists(user_path)):
+            raise ValueError
         ins_data = load_file(cfg_path)
         user_data = load_file(user_path)
         employee_id = []
