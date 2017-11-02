@@ -40,11 +40,11 @@ def cal_tax(income):
     sub_income = income - income * sum(INSURANCE_RATE_TABLE.values())
     taxable_income = sub_income - START_INCOME
     if taxable_income <= 0:
-        return 0.00
+        return sub_income
     for item in INCOME_TAX_TABLE:
         if taxable_income >= item.Base:
             tax = taxable_income * item.Rate - item.Subtractor
-            return tax
+            return sub_income - tax
 
 def main():
     if len(sys.argv) < 2:
