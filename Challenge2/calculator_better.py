@@ -24,29 +24,42 @@ INCOME_TAX_TABLE = [
         Income_Tax_Calc_Item(0, 0.03, 0)
         ]
 
+INSURANCE_RATE_TABLE = {
+        'indownment' : 0.08,
+        'medical' : 0.02,
+        'unemployment' : 0.005,
+        'injury' : 0.00,
+        'maternity' : 0,
+        'accumulationfund' : 0.06
+        }
+
+
 START_INCOME = 3500
 
 def cal_tax(income):
-    if income >= START_INCOME:
-        taxable_income = income - START_INCOME
-    else:
+    sub_income = income - income * sum(INSURANCE_RATE_TABLE.values())
+    taxable_income = sub_income - START_INCOME
+    if taxable_income <= 0:
         return 0.00
     for item in INCOME_TAX_TABLE:
-        if taxable_income > item.Base:
-            print(taxable_income, item.Rate, item.Subtractor)
-            return taxable_income * item.Rate - item.Subtractor
+        if taxable_income >= item.Base:
+            tax = taxable_income * item.Rate - item.Subtractor
+            return tax
 
 def main():
-    if len(sys.argv) != 2:
+    if len(sys.argv) < 2:
         print('Parameter Error')
         return
-    try:
-        income = int(sys.argv[1])
-    except ValueError:
-        print('Parameter Error')
-        return
+    employee_dic = sys.argv[1:]
+    for empl in employee_dic:
+        empl_no, empl_income = empl.split(':')
+        try:
+            income = int(empl_income)
+        except ValueError:
+            print('Parameter Error')
+            return
+        tax = cal_tax(income)
+        print('{}:{:.2f}'.format(empl_no, tax))
     
-    print(format(cal_tax(income), '.2f'))
-
 if __name__ == '__main__':
     main()
