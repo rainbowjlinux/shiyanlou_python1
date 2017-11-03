@@ -20,10 +20,17 @@ def loadfile(filename):
         s = f.read()
         print('load:',s)
         return json.loads(s)
-
-if __name__ == '__main__':
+def main():
     dic = {'zhangsan':1000,'zhaosi':2000,'liuneng':3000}
     filename = '/home/shiyanlou/Code/shiyanlou_python1/file/dic2.data'
     dumpfile(filename, dic)
     new_dic = loadfile(filename)
     print (type(new_dic))
+
+    with open('/home/shiyanlou/Code/shiyanlou_python1/file/test_iter.txt', 'r') as f:
+        print(json.loads(f.read()))
+    with open('/home/shiyanlou/Code/shiyanlou_python1/file/test_iter.txt', 'r') as f:
+        print(json.load(f))
+
+if __name__ == '__main__':
+    main()

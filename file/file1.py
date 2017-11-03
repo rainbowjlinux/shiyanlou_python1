@@ -7,13 +7,13 @@
 #Created Time: 2017-10-23 10:55:17
 ############################
 
+from collections import Iterable
+
 def openfile(path):
     print ('file path:',path)
     f = open(path)
     print ('===read once===')
     l = f.read()
-    for x in l:
-        print(x)
     f.close()
 
     f = open(path)
@@ -50,13 +50,27 @@ def copywith(src, dst):
         with open(dst, 'w') as d:
             d.write(s.read())
 
-    print('===copy successfully===')
+def readfile(filepath):
+    with open(filepath, 'r') as f:
+        for line in f.read():
+            print(line)
 
-if __name__ == '__main__':
+def traverse(filepath):
+    with open(filepath, 'r') as f:
+        print("f is iterable?", isinstance(f, Iterable))
+        for line in f:
+            print(line)
+
+def main():
     file1 = "/home/shiyanlou/Code/shiyanlou_python1/file/test.txt"
     file2 = "/home/shiyanlou/Code/shiyanlou_python1/file/copy.txt"
-#    openfile(file1)
-#    openwith(file1)
-#    writefile(file1)
-#    copyfile(file1, file2)
+    openfile(file1)
+    openwith(file1)
+    writefile(file1)
+    copyfile(file1, file2)
     copywith(file1, file2)
+    print('===copy successfully===')
+    traverse(file1)
+
+if __name__ == '__main__':
+    main()
